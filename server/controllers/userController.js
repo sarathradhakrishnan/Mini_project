@@ -38,7 +38,7 @@ exports.find = (req,res)=>{
         let searchTerm = req.body.search;
         
         //Use the connection
-        connection.query('SELECT * FROM students WHERE First_Name LIKE ?',[searchTerm + '%'],(err,rows)=>{
+        connection.query('SELECT * FROM students WHERE First_Name LIKE ? OR Last_Name LIKE ?',[searchTerm + '%',searchTerm + '%'],(err,rows)=>{
             connection.release();
 
             if(!err){
@@ -48,6 +48,33 @@ exports.find = (req,res)=>{
             }
             console.log('The data from student table :\n',rows);
         });
-});
+    });
+    
+}
+
+exports.form = (req,res)=>{
+    res.render('add-user');
+}
+
+//Add new user
+exports.create = (req,res)=>{
+    const {roll_no , class1 , first_name , last_name , email ,phone } = req.body;
+    pool.getConnection((err,connection)=>{
+        if(err) throw err;//If not connected properly
+        console.log('Connected as ID'+connection.threadId);
+        let searchTerm = req.body.search;
+        
+        //Use the connection
+        connection.query('INSERT INTO students SET Rollno = ?,first_name = ?, last_name = ?,email = ? , phone = ? , class = ? ',[roll_no, first_name, last_name, email, phone, class1 ],(err,rows)=>{
+            connection.release();
+
+            if(!err){
+                res.render('add-user',{ alert:'User added successfully.'});
+            }else{
+                console.log(err);
+            }
+            console.log('The data from student table :\n',rows);
+        });
+    });
     
 }
