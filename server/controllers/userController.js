@@ -10,8 +10,6 @@ const pool = mysql.createPool({
 });
 
 
-
-
 //view users
 exports.view = (req,res)=>{
 
@@ -28,12 +26,28 @@ exports.view = (req,res)=>{
             }else{
                 console.log(err);
             }
-
             console.log('The data from student table :\n',rows);
-
         });
 });
+}
+//Find user by search
+exports.find = (req,res)=>{
+    pool.getConnection((err,connection)=>{
+        if(err) throw err;//If not connected properly
+        console.log('Connected as ID'+connection.threadId);
+        let searchTerm = req.body.search;
+        
+        //Use the connection
+        connection.query('SELECT * FROM students WHERE First_Name LIKE ?',[searchTerm + '%'],(err,rows)=>{
+            connection.release();
 
-
-
+            if(!err){
+                res.render('home',{ rows });
+            }else{
+                console.log(err);
+            }
+            console.log('The data from student table :\n',rows);
+        });
+});
+    
 }
