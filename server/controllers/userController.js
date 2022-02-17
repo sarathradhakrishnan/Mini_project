@@ -111,7 +111,7 @@ exports.update = (req,res)=>{
         let searchTerm = req.body.search;
         
         //Use the connection
-        connection.query('UPDATE students SET first_name = ?, last_name = ? WHERE Rollno = ?',[first_name, last_name, req.params.id],(err,rows)=>{
+        connection.query('UPDATE students SET first_name = ?, last_name = ?, email = ?, phone = ?,class = ? , Rollno = ? WHERE Rollno = ?',[first_name, last_name, email, phone, class1, roll_no, req.params.id],(err,rows)=>{
             connection.release();
 
             if(!err){
@@ -125,7 +125,7 @@ exports.update = (req,res)=>{
                         connection.release();
             
                         if(!err){
-                            res.render('edit-user',{rows});
+                            res.render('edit-user',{rows, alert: `${first_name} has been updated`});
                             console.log(rows);
                         }else{
                             console.log(err);
@@ -133,6 +133,28 @@ exports.update = (req,res)=>{
                         console.log('The data from student table :\n',rows);
                     });
                 });
+            }else{
+                console.log(err);
+            }
+            console.log('The data from student table :\n',rows);
+        });
+    });
+}
+
+//Delete user
+exports.delete = (req,res)=>{
+    pool.getConnection((err,connection)=>{
+        if(err) throw err;//If not connected properly
+        console.log('Connected as ID'+connection.threadId);
+        //let searchTerm = req.body.search;
+        
+        //Use the connection
+        connection.query('DELETE FROM students WHERE Rollno = ?',[req.params.id],(err,rows)=>{
+            connection.release();
+
+            if(!err){
+                res.redirect('/');
+                console.log(rows);
             }else{
                 console.log(err);
             }
