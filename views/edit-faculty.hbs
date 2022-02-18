@@ -1,6 +1,7 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><a href="/faculty">Faculty</a></li>
     <li class="breadcrumb-item active" aria-current="page">Edit Faculty</li>
   </ol>
 </nav>
@@ -13,7 +14,7 @@
 {{/if}}
 
 {{#each rows}}
-<form class="row g-3 needs-validation" method="POST" action="/edituser/{{this.Rollno}}" novalidate>
+<form class="row g-3 needs-validation" method="POST" action="/faculty/editfaculty/{{this.fid}}" novalidate>
     <div class="col-6">
         <div class="form-floating mb-3">
         <input type="text" class="form-control" id="floatingInput" value="{{this.fid}}" placeholder="Faculty ID" name="fid">

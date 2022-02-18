@@ -111,7 +111,7 @@ exports.update = (req,res)=>{
         let searchTerm = req.body.search;
         
         //Use the connection
-        connection.query('UPDATE faculty SET name = ?, subject = ?, email = ? WHERE fid = ?',[first_name, last_name, email, phone, class1, roll_no, req.params.id],(err,rows)=>{
+        connection.query('UPDATE faculty SET name = ?, subject = ?, email = ? WHERE fid = ?',[name, subject, email , req.params.id],(err,rows)=>{
             connection.release();
 
             if(!err){
