@@ -42,7 +42,9 @@ pool.getConnection((err,connection)=>{
 
 
 const routes = require('./server/routes/user');
-app.use('/',routes);
+const facultyroute =require('./server/routes/faculty');
 
+app.use('/faculty',facultyroute)
+app.use('/',routes);
 
 app.listen(port,()=>console.log(`Listening on port ${port}`));

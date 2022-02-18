@@ -11,10 +11,4 @@ router.get('/edituser/:id',userController.edit);
 router.post('/edituser/:id',userController.update);
 router.get('/:id',userController.delete);
 
-
-
-
-
-
-
 module.exports = router;

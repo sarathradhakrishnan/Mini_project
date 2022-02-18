@@ -1,0 +1,45 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><a href="/faculty">Faculty</a></li>
+    <li class="breadcrumb-item active" aria-current="page">New Faculty</li>
+  </ol>
+</nav>
+
+
+{{#if alert}}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{alert}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/if}}
+
+<form class="row g-3 needs-validation" method="POST" action="/faculty/addfaculty" novalidate>
+    <div class="col-6">
+        <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" value="{{this.fid}}" placeholder="Faculty ID" name="fid">
+        <label for="floatingInput">Faculty ID</label>
+        </div>
+    </div> 
+    <div class="col-6">
+        <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" value="{{this.name}}" placeholder="Name" name="name">
+        <label for="floatingInput">Name</label>
+        </div>
+    </div> 
+    <div class="col-6">
+        <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" value="{{this.subject}}" placeholder="Subject" name="subject">
+        <label for="floatingInput">Subject</label>
+        </div>
+    </div> 
+    <div class="col-6">
+        <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" value="{{this.email}}" placeholder="Email" name="email">
+        <label for="floatingInput">Email</label>
+        </div>
+    </div> 
+    <div class="col-12 d-grid">
+        <button class="btn btn-primary" type="submit" >Submit</button>
+    </div>
+</form>
