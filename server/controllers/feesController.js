@@ -18,11 +18,11 @@ exports.view = (req,res)=>{
         console.log('Connected as ID'+connection.threadId);
 
         //Use the connection
-        connection.query('SELECT * FROM faculty',(err,rows)=>{
+        connection.query('SELECT * FROM fees',(err,rows)=>{
             connection.release();
 
             if(!err){
-                res.render('faculty-home',{ rows });
+                res.render('fees-home',{ rows });
             }else{
                 console.log(err);
             }
@@ -38,11 +38,11 @@ exports.find = (req,res)=>{
         let searchTerm = req.body.search;
         
         //Use the connection
-        connection.query('SELECT * FROM faculty WHERE name LIKE ?',[searchTerm + '%'],(err,rows)=>{
+        connection.query('SELECT * FROM fees WHERE rollno LIKE ?',[searchTerm + '%'],(err,rows)=>{
             connection.release();
 
             if(!err){
-                res.render('faculty-home',{ rows });
+                res.render('fees-home',{ rows });
             }else{
                 console.log(err);
             }
@@ -53,23 +53,23 @@ exports.find = (req,res)=>{
 }
 
 exports.form = (req,res)=>{
-    res.render('add-faculty');
+    res.render('add-fees');
 }
 
 //Add new user
 exports.create = (req,res)=>{
-    const {fid, name , subject ,email} = req.body;
+    const {rollno, feesdue} = req.body;
     pool.getConnection((err,connection)=>{
         if(err) throw err;//If not connected properly
         console.log('Connected as ID'+connection.threadId);
         let searchTerm = req.body.search;
         
         //Use the connection
-        connection.query('INSERT INTO faculty SET fid = ?, name = ?, subject = ?, email = ? ',[fid, name, subject ,email],(err,rows)=>{
+        connection.query('INSERT INTO fees SET rollno = ?, feesdue = ? ',[rollno, feesdue],(err,rows)=>{
             connection.release();
 
             if(!err){
-                res.render('add-faculty',{ alert:'User added successfully.'});
+                res.render('add-fees',{ alert:'Fees added successfully.'});
             }else{
                 console.log(err);
             }
@@ -87,11 +87,11 @@ exports.edit = (req,res)=>{
         //let searchTerm = req.body.search;
         
         //Use the connection
-        connection.query('SELECT * FROM faculty WHERE fid = ?',[req.params.id],(err,rows)=>{
+        connection.query('SELECT * FROM fees WHERE rollno = ?',[req.params.id],(err,rows)=>{
             connection.release();
 
             if(!err){
-                res.render('edit-faculty',{rows});
+                res.render('edit-fees',{rows});
                 console.log(rows);
             }else{
                 console.log(err);
@@ -104,14 +104,14 @@ exports.edit = (req,res)=>{
 
 //Update User
 exports.update = (req,res)=>{
-    const {fid, name , subject ,email} = req.body;
+    const {rollno, feesdue} = req.body;
     pool.getConnection((err,connection)=>{
         if(err) throw err;//If not connected properly
         console.log('Connected as ID'+connection.threadId);
         let searchTerm = req.body.search;
         
         //Use the connection
-        connection.query('UPDATE faculty SET name = ?, subject = ?, email = ? WHERE fid = ?',[name, subject, email , req.params.id],(err,rows)=>{
+        connection.query('UPDATE fees SET feesdue = ? WHERE rollno = ?',[feesdue, req.params.id],(err,rows)=>{
             connection.release();
 
             if(!err){
@@ -121,11 +121,11 @@ exports.update = (req,res)=>{
                     //let searchTerm = req.body.search;
                     
                     //Use the connection
-                    connection.query('SELECT * FROM faculty WHERE fid = ?',[req.params.id],(err,rows)=>{
+                    connection.query('SELECT * FROM fees WHERE rollno = ?',[req.params.id],(err,rows)=>{
                         connection.release();
             
                         if(!err){
-                            res.render('edit-faculty',{rows, alert: `${name} has been updated`});
+                            res.render('edit-fees',{rows, alert: `${rollno} has been updated`});
                             console.log(rows);
                         }else{
                             console.log(err);
@@ -149,11 +149,11 @@ exports.delete = (req,res)=>{
         //let searchTerm = req.body.search;
         
         //Use the connection
-        connection.query('DELETE FROM faculty WHERE fid = ?',[req.params.id],(err,rows)=>{
+        connection.query('DELETE FROM fees WHERE rollno = ?',[req.params.id],(err,rows)=>{
             connection.release();
 
             if(!err){
-                res.redirect('/faculty');
+                res.redirect('/fees');
                 console.log(rows);
             }else{
                 console.log(err);

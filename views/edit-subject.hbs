@@ -1,0 +1,40 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><a href="/subject">Subject</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit Subject</li>
+  </ol>
+</nav>
+
+{{#if alert}}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{alert}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/if}}
+
+{{#each rows}}
+<form class="row g-3 needs-validation" method="POST" action="/subject/editsubject/{{this.subject_id}}" novalidate>
+    <div class="col-6">
+        <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" value="{{this.subject_id}}" placeholder="Subject ID" name="subject_id">
+        <label for="floatingInput">Subject ID</label>
+        </div>
+    </div> 
+    <div class="col-6">
+        <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" value="{{this.subject_name}}" placeholder="Name" name="subject_name">
+        <label for="floatingInput">Name</label>
+        </div>
+    </div> 
+    <div class="col-6">
+        <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" value="{{this.department}}" placeholder="Subject" name="department">
+        <label for="floatingInput">Department</label>
+        </div>
+    </div> 
+    <div class="col-12 d-grid">
+        <button class="btn btn-primary" type="submit" >Submit</button>
+    </div>
+</form>
+{{/each}}

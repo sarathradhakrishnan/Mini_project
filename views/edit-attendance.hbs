@@ -1,0 +1,34 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><a href="/attendance">Attendance</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit Attendance</li>
+  </ol>
+</nav>
+
+{{#if alert}}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{alert}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/if}}
+
+{{#each rows}}
+<form class="row g-3 needs-validation" method="POST" action="/attendance/editattendance/{{this.rollno}}" novalidate>
+    <div class="col-6">
+        <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" value="{{this.rollno}}" placeholder="Roll Number" name="rollno">
+        <label for="floatingInput">Roll Number</label>
+        </div>
+    </div> 
+    <div class="col-6">
+        <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" value="{{this.att}}" placeholder="Attendance" name="att">
+        <label for="floatingInput">Attendance</label>
+        </div>
+    </div> 
+    <div class="col-12 d-grid">
+        <button class="btn btn-primary" type="submit" >Submit</button>
+    </div>
+</form>
+{{/each}}

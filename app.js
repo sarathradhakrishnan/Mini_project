@@ -43,7 +43,13 @@ pool.getConnection((err,connection)=>{
 
 const routes = require('./server/routes/user');
 const facultyroute =require('./server/routes/faculty');
+const subjectroute =require('./server/routes/subject');
+const feesroute =require('./server/routes/fees');
+const attendanceroute =require('./server/routes/attendance');
 
+app.use('/subject',subjectroute)
+app.use('/fees',feesroute)
+app.use('/attendance',attendanceroute)
 app.use('/faculty',facultyroute)
 app.use('/',routes);
 
